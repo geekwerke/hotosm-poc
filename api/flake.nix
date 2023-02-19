@@ -22,6 +22,7 @@
           python310
           pdm
           python310Packages.python-lsp-server
+          postgresql_15
           postgresql15Packages.postgis
         ];
       };
