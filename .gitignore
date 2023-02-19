@@ -1,3 +1,6 @@
 # System files
 .DS_Store
 Thumbs.db
+api/.direnv
+api/__pycache__
+api/.pdm.toml
