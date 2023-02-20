@@ -5,13 +5,14 @@ import {
   useEffect,
   useState,
 } from "react";
+import classNames from "classnames";
 import Leaflet from "leaflet";
 import PropTypes from "prop-types";
 
 const MapContext = createContext();
 const useMapContext = () => useContext(MapContext);
 
-function Map({ center, zoom, ...attrs }) {
+function Map({ center, className, zoom, ...rest }) {
   const [context, setContext] = useState(null);
 
   const mapRef = useCallback((mapContainer) => {
@@ -39,18 +40,24 @@ function Map({ center, zoom, ...attrs }) {
 
   return (
     <MapContext.Provider value={context}>
-      <div ref={mapRef} {...attrs} />
+      <div
+        className={classNames("relative", className)}
+        ref={mapRef}
+        {...rest}
+      />
     </MapContext.Provider>
   );
 }
 
 Map.propTypes = {
   center: PropTypes.array,
+  className: PropTypes.string,
   zoom: PropTypes.number,
 };
 
 Map.defaultProps = {
   center: [12.9716, 77.5946],
+  className: null,
   zoom: 12,
 };
 

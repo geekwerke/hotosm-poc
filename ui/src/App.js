@@ -1,7 +1,7 @@
 import Map from "./components/Map";
 
 function App() {
-  return <Map style={{ width: "100vw", height: "100vh" }} />;
+  return <Map className="fullscreen" />;
 }
 
 export default App;
