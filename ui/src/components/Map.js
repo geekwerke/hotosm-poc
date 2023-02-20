@@ -1,4 +1,3 @@
-import Leaflet from "leaflet";
 import {
   createContext,
   useCallback,
@@ -6,16 +5,18 @@ import {
   useEffect,
   useState,
 } from "react";
+import Leaflet from "leaflet";
+import PropTypes from "prop-types";
 
 const MapContext = createContext();
 const useMapContext = () => useContext(MapContext);
 
-function Map() {
+function Map({ center, zoom, ...attrs }) {
   const [context, setContext] = useState(null);
 
   const mapRef = useCallback((mapContainer) => {
     if (mapContainer !== null) {
-      const map = Leaflet.map(mapContainer).setView([51.505, -0.09], 13);
+      const map = Leaflet.map(mapContainer).setView(center, zoom);
 
       map.zoomControl.setPosition("topright");
 
@@ -27,6 +28,9 @@ function Map() {
 
       setContext({ map });
     }
+
+    // This effect must only run once on initialization.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -35,10 +39,20 @@ function Map() {
 
   return (
     <MapContext.Provider value={context}>
-      <div ref={mapRef} style={{ width: "100vw", height: "100vh" }} />
+      <div ref={mapRef} {...attrs} />
     </MapContext.Provider>
   );
 }
+
+Map.propTypes = {
+  center: PropTypes.array,
+  zoom: PropTypes.number,
+};
+
+Map.defaultProps = {
+  center: [12.9716, 77.5946],
+  zoom: 12,
+};
 
 export { useMapContext };
 
