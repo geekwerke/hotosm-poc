@@ -1,0 +1,41 @@
+/**********************
+ * VARIABLES
+ **********************/
+
+:root {
+  --fmtm-background: #11191f;
+}
+
+/**********************
+ * RESET STYLES
+ **********************/
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/**********************
+ * GLOBAL STYLES
+ **********************/
+
+body {
+  background: var(--fmtm-background);
+}
