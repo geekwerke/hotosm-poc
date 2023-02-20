@@ -144,6 +144,12 @@ requires_python = ">=3.7"
 summary = "Fast, correct Python JSON library supporting dataclasses, datetimes, and numpy"
 
 [[package]]
+name = "psycopg2"
+version = "2.9.5"
+requires_python = ">=3.6"
+summary = "psycopg2 - Python-PostgreSQL Database Adapter"
+
+[[package]]
 name = "pydantic"
 version = "1.10.5"
 requires_python = ">=3.7"
@@ -270,7 +276,7 @@ summary = "An implementation of the WebSocket Protocol (RFC 6455 & 7692)"
 
 [metadata]
 lock_version = "4.1"
-content_hash = "sha256:7eae05171bdb2be541728f450eace8866a025342f398c2c63dc5b639afeb108c"
+content_hash = "sha256:4379d30d8a863abdd9443a792e60bb8330aa8abd55b103050e197d5fc2701618"
 
 [metadata.files]
 "anyio 3.6.2" = [
@@ -465,6 +471,21 @@ content_hash = "sha256:7eae05171bdb2be541728f450eace8866a025342f398c2c63dc5b639a
     {url = "https://files.pythonhosted.org/packages/f0/3c/b357d9f01f73bd6e06755ffbc15c2239f3d96c19635577e2b14792841af1/orjson-3.8.6-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:865ef341c4d310ac2689bf811dbc0930b2f13272f8eade1511dc40b186f6d562"},
     {url = "https://files.pythonhosted.org/packages/f6/3d/5232ce089a0c0a12e6fcc5e5729cbcbd97f20d2a25f398889288e1bbbddc/orjson-3.8.6-cp310-none-win_amd64.whl", hash = "sha256:3e44f78db3a15902b5e8386119979691ed3dd61d1ded10bad2c7106fd50641ef"},
     {url = "https://files.pythonhosted.org/packages/ff/31/39b34f2c6742b7b3b9dfeaeb548e4c8db9402e38e9dcb822321b25dfad47/orjson-3.8.6-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:1d7402121d06d11fafcaed7d06f9d68b11bbe39868e0e1bc19239ee5b6b98b2b"},
+]
+"psycopg2 2.9.5" = [
+    {url = "https://files.pythonhosted.org/packages/04/51/00ed720de223485a56c28b404747b96806679e720f4c97a75bdd556a01f4/psycopg2-2.9.5-cp310-cp310-win32.whl", hash = "sha256:d3ef67e630b0de0779c42912fe2cbae3805ebaba30cda27fea2a3de650a9414f"},
+    {url = "https://files.pythonhosted.org/packages/10/db/a34baee6275fcc371ecdb30040042ed2a548f18c29339ea9ca2406a35cba/psycopg2-2.9.5-cp39-cp39-win_amd64.whl", hash = "sha256:190d51e8c1b25a47484e52a79638a8182451d6f6dff99f26ad9bd81e5359a0fa"},
+    {url = "https://files.pythonhosted.org/packages/23/b2/679ba212dd7fc5f726913053756b23344d5520b4fa49c2a93af31d0f4508/psycopg2-2.9.5-cp311-cp311-win_amd64.whl", hash = "sha256:920bf418000dd17669d2904472efeab2b20546efd0548139618f8fa305d1d7ad"},
+    {url = "https://files.pythonhosted.org/packages/7e/48/98e0d097fc23d772f525f54b3c62becadf839f2f84ee6600e283dde5dfe7/psycopg2-2.9.5-cp38-cp38-win_amd64.whl", hash = "sha256:1a5c7d7d577e0eabfcf15eb87d1e19314c8c4f0e722a301f98e0e3a65e238b4e"},
+    {url = "https://files.pythonhosted.org/packages/83/5c/fe9e713ef1d352fbaae0ecdae05a9882ad9466f46100a8aa2962d858e62a/psycopg2-2.9.5-cp37-cp37m-win32.whl", hash = "sha256:922cc5f0b98a5f2b1ff481f5551b95cd04580fd6f0c72d9b22e6c0145a4840e0"},
+    {url = "https://files.pythonhosted.org/packages/89/d6/cd8c46417e0f7a16b4b0fc321f4ab676a59250d08fce5b64921897fb07cc/psycopg2-2.9.5.tar.gz", hash = "sha256:a5246d2e683a972e2187a8714b5c2cf8156c064629f9a9b1a873c1730d9e245a"},
+    {url = "https://files.pythonhosted.org/packages/9f/1f/df4c9ab12634dc89c71c2184b2524adccd804af2bacc8968a7c831642338/psycopg2-2.9.5-cp311-cp311-win32.whl", hash = "sha256:093e3894d2d3c592ab0945d9eba9d139c139664dcf83a1c440b8a7aa9bb21955"},
+    {url = "https://files.pythonhosted.org/packages/ae/f4/b01b7d33f5456e26b3f41fd13c93aa1c58528e3306d801133ec81dfcd81a/psycopg2-2.9.5-cp36-cp36m-win32.whl", hash = "sha256:b9ac1b0d8ecc49e05e4e182694f418d27f3aedcfca854ebd6c05bb1cffa10d6d"},
+    {url = "https://files.pythonhosted.org/packages/af/4f/3abf262dc49cb70c2fbb6d38a9a8956a0c79ba2d102e457958bc4f21660f/psycopg2-2.9.5-cp310-cp310-win_amd64.whl", hash = "sha256:4cb9936316d88bfab614666eb9e32995e794ed0f8f6b3b718666c22819c1d7ee"},
+    {url = "https://files.pythonhosted.org/packages/b4/f4/c45a12b538c1ef9e36681d2ddec7d397961bdd9ba53de01bdce32acdb348/psycopg2-2.9.5-cp38-cp38-win32.whl", hash = "sha256:f5b6320dbc3cf6cfb9f25308286f9f7ab464e65cfb105b64cc9c52831748ced2"},
+    {url = "https://files.pythonhosted.org/packages/c2/e7/5cf79928c362cd661765a18d7015b2e0b48f01d9a41dad42d7d945c11a93/psycopg2-2.9.5-cp36-cp36m-win_amd64.whl", hash = "sha256:fc04dd5189b90d825509caa510f20d1d504761e78b8dfb95a0ede180f71d50e5"},
+    {url = "https://files.pythonhosted.org/packages/c8/80/9c4a7f453fbef2acc65a66f79def6b048787f5ff82005682a98252311e68/psycopg2-2.9.5-cp39-cp39-win32.whl", hash = "sha256:322fd5fca0b1113677089d4ebd5222c964b1760e361f151cbb2706c4912112c5"},
+    {url = "https://files.pythonhosted.org/packages/d1/c5/ff268400b5fae84d8070e7b7a8c9425c635a24a68eee587f86adcf11bb13/psycopg2-2.9.5-cp37-cp37m-win_amd64.whl", hash = "sha256:1e5a38aa85bd660c53947bd28aeaafb6a97d70423606f1ccb044a03a1203fe4a"},
 ]
 "pydantic 1.10.5" = [
     {url = "https://files.pythonhosted.org/packages/10/1d/14dcf2aa8cde579271eee6928d1611b81987da5c21bf7c8ca467c8d2b82f/pydantic-1.10.5-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:532e97c35719f137ee5405bd3eeddc5c06eb91a032bc755a44e34a712420daf3"},
