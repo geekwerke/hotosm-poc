@@ -1,0 +1,44 @@
+/**********************
+ * UTILITY CLASSES
+ **********************/
+
+/* Positioning utilities */
+
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+
+.top-0 {
+  top: 0px;
+}
+.right-0 {
+  right: 0px;
+}
+.bottom-0 {
+  bottom: 0px;
+}
+.left-0 {
+  left: 0px;
+}
+
+.top-md {
+  top: var(--fmtm-space-md);
+}
+.right-md {
+  right: var(--fmtm-space-md);
+}
+.bottom-md {
+  bottom: var(--fmtm-space-md);
+}
+.left-md {
+  left: var(--fmtm-space-md);
+}
+
+/* Sizing utilities */
+.fullscreen {
+  width: 100vw;
+  height: 100vh;
+}
