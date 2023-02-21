@@ -27,4 +27,8 @@ async def root():
 
 @app.post("/project")
 async def project(boundary: Boundary, params: Params):
-    return subdivide(boundary, params)
+    geometry = json.dumps(boundary.features[0].geometry.__dict__)
+    polygons = subdivide(geometry, params)
+    geometries = [json.loads(x) for (x,) in polygons]
+    features = [{"type": "Feature", "properties": {}, "geometry": geo} for geo in geometries]
+    return {"split": {"type": "FeatureCollection", "features": features}}
