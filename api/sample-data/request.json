@@ -1,5 +1,4 @@
 {
-  "description": "A 1 kilometer square area covering Gandhinagar, Bangalore. Boundary is a GeoJSON feature collection with one polygon feature. The params.maxSize field is in square meteres. Split features could be zero or more of 'roads', 'waterways', 'railways'.",
   "boundary": {
     "type": "FeatureCollection",
     "features": [
@@ -34,7 +33,7 @@
     ]
   },
   "params": {
-    "subTasks": 7,
+    "subTasks": 5,
     "splitBy": ["roads"]
   }
 }
