@@ -1,11 +1,15 @@
+import { AppStatus } from "../App";
+
 function ProjectPanel({
-  hasFinishedEditing,
-  canFinishEditing,
-  isEditing,
-  onClear,
-  onDone,
-  onEdit,
+  canFinishDrawing,
+  onDrawClear,
+  onDrawDone,
+  onDrawStart,
+  status,
 }) {
+  const isDrawing = status === AppStatus.DRAWING;
+  const hasFinishedDrawing = status === AppStatus.EDITING;
+
   const renderProjectBoundary = (
     <>
       <h2>Draw project boundary</h2>
@@ -13,20 +17,23 @@ function ProjectPanel({
         Use your mouse to draw a boundary. You can drag the markers to edit the
         boundary before clicking done.
       </p>
-      {canFinishEditing ? (
+      {canFinishDrawing ? (
         <div className="button-group">
-          <button className="primary w-full shadow-none" onClick={onDone}>
+          <button className="primary w-full shadow-none" onClick={onDrawDone}>
             Done
           </button>
-          <button className="secondary w-full shadow-none" onClick={onClear}>
+          <button
+            className="secondary w-full shadow-none"
+            onClick={onDrawClear}
+          >
             Clear
           </button>
         </div>
       ) : (
         <button
           className="primary w-full shadow-none"
-          onClick={onEdit}
-          disabled={isEditing}
+          onClick={onDrawStart}
+          disabled={isDrawing}
         >
           Start drawing
         </button>
@@ -52,7 +59,7 @@ function ProjectPanel({
         <p>Start your field mapping campaign</p>
       </header>
       <main className="flow">
-        {!hasFinishedEditing ? renderProjectBoundary : renderProjectParams}
+        {hasFinishedDrawing ? renderProjectParams : renderProjectBoundary}
       </main>
     </section>
   );

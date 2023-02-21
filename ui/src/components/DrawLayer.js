@@ -1,24 +1,18 @@
-import {
-  forwardRef,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import FreeDraw, { ALL, NONE } from "leaflet-freedraw";
 import L from "leaflet";
 
+import { AppStatus } from "../App";
 import { useMapContext } from "./Map";
 
-const DrawLayerWithRef = forwardRef(function DrawLayer(props, ref) {
-  const { isEditing, onEdit } = props;
+const DrawLayer = forwardRef(function ({ latLngs, status, onDrawChange }, ref) {
   const { map } = useMapContext();
 
+  // Expose the layer outside the component.
   const freeDrawLayer = useRef(null);
-  const [latLngs, setLatLngs] = useState([]);
-
   useImperativeHandle(ref, () => freeDrawLayer.current, []);
 
+  // Initialise layer and listen for events.
   useEffect(() => {
     freeDrawLayer.current = new FreeDraw({
       mode: NONE,
@@ -26,30 +20,30 @@ const DrawLayerWithRef = forwardRef(function DrawLayer(props, ref) {
     });
 
     freeDrawLayer.current.on("markers", (event) => {
-      setLatLngs(event.latLngs);
+      onDrawChange(event.latLngs);
     });
 
     map.addLayer(freeDrawLayer.current);
 
     return () => map.removeLayer(freeDrawLayer.current);
-  }, [onEdit, map]);
+  }, [onDrawChange, map]);
 
+  // Toggle mode between editing and viewing.
+  const isDrawing = status === AppStatus.DRAWING;
   useEffect(() => {
-    if (isEditing) freeDrawLayer.current?.mode(ALL);
+    if (isDrawing) freeDrawLayer.current?.mode(ALL);
     else freeDrawLayer.current?.mode(NONE);
-  }, [isEditing]);
+  }, [isDrawing]);
 
+  // Fix for a bug in Leaflet.FreeDraw where the polygon
+  // drawn does not get added to the map.
   useEffect(() => {
     const polygon = L.polygon(latLngs);
     map.addLayer(polygon);
     return () => map.removeLayer(polygon);
   }, [map, latLngs]);
 
-  useEffect(() => {
-    onEdit(latLngs);
-  }, [onEdit, latLngs]);
-
   return null;
 });
 
-export default DrawLayerWithRef;
+export default DrawLayer;
