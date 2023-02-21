@@ -10,7 +10,7 @@ RUN pdm install --prod --no-lock --no-editable
 COPY src/ /code/src
 COPY sample-data/ /code/sample-data
 
-ENV PYTHONPATH=/code/.venv/lib
+ENV PYTHONPATH="/code/.venv/lib:/code/src"
 ENV PATH="/code/.venv/bin:$PATH"
 
 CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0"]
