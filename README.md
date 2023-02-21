@@ -10,7 +10,7 @@ POC for HOTOSM FMTM project.
 ## Running the backend
 
 ```
-$ cd api
+$ cd api/src
 $ pdm venu activate
 $ uvicorn main:app
 ```
