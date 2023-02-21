@@ -2,12 +2,7 @@ import psycopg2
 import os
 import json
 
-db_host = os.environ['DB_HOST']
-db_user = os.environ['DB_USER']
-db_password = os.environ['DB_PASSWORD']
-connection = psycopg2.connect(
-    f'dbname=postgres user={db_user} password={db_password} host={db_host}'
-)
+connection = psycopg2.connect(os.environ['DATABASE_URL'])
 cursor = connection.cursor()
 
 

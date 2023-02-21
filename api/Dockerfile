@@ -1,10 +1,16 @@
 FROM python:3.10-slim
 
 SHELL ["/bin/bash", "-c"]
+WORKDIR /code
 
 RUN pip install -U pdm
 COPY pyproject.toml pdm.lock /code/
-COPY src/ /code/src
-WORKDIR /code
 RUN pdm install --prod --no-lock --no-editable
-CMD [".venv/bin/uvicorn", "src.main:app"]
+
+COPY src/ /code/src
+COPY sample-data/ /code/sample-data
+
+ENV PYTHONPATH=/code/.venv/lib
+ENV PATH="/code/.venv/bin:$PATH"
+
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0"]
