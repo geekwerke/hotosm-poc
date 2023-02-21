@@ -2,3 +2,4 @@
 @import "./_utilities.css";
 
 @import "leaflet/dist/leaflet.css";
+@import "../plugins/locate.css";

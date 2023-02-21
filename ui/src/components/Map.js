@@ -21,6 +21,8 @@ function Map({ center, className, zoom, ...rest }) {
 
       map.zoomControl.setPosition("topright");
 
+      Leaflet.control.locate().addTo(map);
+
       Leaflet.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution:
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
