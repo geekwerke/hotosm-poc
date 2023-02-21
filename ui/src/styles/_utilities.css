@@ -30,6 +30,9 @@
   width: 100vw;
   height: 100vh;
 }
+.w-full {
+  width: 100%;
+}
 
 /* Pointer events */
 
@@ -42,7 +45,7 @@
 
 /* Z-indexes */
 
-.z-panels {
+.z-panel {
   z-index: 800;
 }
 .z-controls {
@@ -76,4 +79,9 @@
 }
 .shadow-none {
   box-shadow: none;
+}
+
+/* Typography */
+.flow > * + * {
+  margin-top: 1em;
 }

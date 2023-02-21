@@ -1,27 +1,23 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 import FreeDraw, { ALL, NONE } from "leaflet-freedraw";
-import PropTypes from "prop-types";
 import L from "leaflet";
 
 import { useMapContext } from "./Map";
 
-function useFreeDraw() {
+const DrawLayerWithRef = forwardRef(function DrawLayer(props, ref) {
+  const { isEditing, onEdit } = props;
   const { map } = useMapContext();
 
   const freeDrawLayer = useRef(null);
-
   const [latLngs, setLatLngs] = useState([]);
-  const actions = useMemo(
-    () => ({
-      idle() {
-        freeDrawLayer.current?.mode(NONE);
-      },
-      draw() {
-        freeDrawLayer.current?.mode(ALL);
-      },
-    }),
-    []
-  );
+
+  useImperativeHandle(ref, () => freeDrawLayer.current, []);
 
   useEffect(() => {
     freeDrawLayer.current = new FreeDraw({
@@ -36,7 +32,12 @@ function useFreeDraw() {
     map.addLayer(freeDrawLayer.current);
 
     return () => map.removeLayer(freeDrawLayer.current);
-  }, [map]);
+  }, [onEdit, map]);
+
+  useEffect(() => {
+    if (isEditing) freeDrawLayer.current?.mode(ALL);
+    else freeDrawLayer.current?.mode(NONE);
+  }, [isEditing]);
 
   useEffect(() => {
     const polygon = L.polygon(latLngs);
@@ -44,24 +45,11 @@ function useFreeDraw() {
     return () => map.removeLayer(polygon);
   }, [map, latLngs]);
 
-  return { latLngs, actions };
-}
-
-function DrawLayer({ editable }) {
-  const { actions } = useFreeDraw();
-
   useEffect(() => {
-    if (editable) actions.draw();
-    else actions.idle();
-  }, [actions, editable]);
-}
+    onEdit(latLngs);
+  }, [onEdit, latLngs]);
 
-DrawLayer.propTypes = {
-  editable: PropTypes.bool,
-};
+  return null;
+});
 
-DrawLayer.defaultProps = {
-  editable: false,
-};
-
-export default DrawLayer;
+export default DrawLayerWithRef;
