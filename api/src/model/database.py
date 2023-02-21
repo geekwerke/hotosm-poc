@@ -5,9 +5,8 @@ import json
 connection = psycopg2.connect(os.environ['DATABASE_URL'])
 cursor = connection.cursor()
 
-def subdivide(req: str) -> str:
-    geojson = json.dumps(req['boundary'])
-    subtasks = json.dumps(req['params']['subTasks'])
+def subdivide(boundary, params):
+    subtasks = params['subTasks']
 
     query = """
 WITH data AS (SELECT '{}'::json AS fc),
@@ -37,7 +36,7 @@ geom_divided AS (
 
 SELECT ST_AsGeoJSON(geom)
 FROM geom_divided;
-    """.format(geojson, subtasks)
+    """.format(boundary, subtasks)
 
     cursor.execute(query)
     return cursor.fetchall()
