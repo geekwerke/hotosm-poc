@@ -1,0 +1,37 @@
+/**********************
+ * ELEMENT CLASSES
+ **********************/
+
+/* Buttons */
+
+button {
+  --fmtm-button: var(--fmtm-primary);
+  --fmtm-button-hover: var(--fmtm-primary-hover);
+  --fmtm-button-text: var(--fmtm-primary-inverse);
+
+  background-color: var(--fmtm-button);
+  border: none;
+  border-radius: 0.25rem;
+  box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.2);
+  color: var(--fmtm-button-text);
+  padding: var(--fmtm-size-xs);
+  transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--fmtm-button-hover);
+  box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.2);
+}
+
+button.secondary {
+  --fmtm-button: var(--fmtm-secondary);
+  --fmtm-button-hover: var(--fmtm-secondary-hover);
+  --fmtm-button-text: var(--fmtm-secondary-inverse);
+}
+
+button.contrast {
+  --fmtm-button: var(--fmtm-contrast);
+  --fmtm-button-hover: var(--fmtm-contrast-hover);
+  --fmtm-button-text: var(--fmtm-contrast-inverse);
+}

@@ -1,5 +1,6 @@
-@import "./_global.css";
+@import "./_base.css";
+@import "./_compositions.css";
+@import "./_elements.css";
 @import "./_utilities.css";
 
 @import "leaflet/dist/leaflet.css";
-@import "../plugins/locate.css";

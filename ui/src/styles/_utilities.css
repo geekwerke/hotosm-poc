@@ -2,26 +2,13 @@
  * UTILITY CLASSES
  **********************/
 
-/* Positioning utilities */
+/* Positioning */
 
 .relative {
   position: relative;
 }
 .absolute {
   position: absolute;
-}
-
-.top-0 {
-  top: 0px;
-}
-.right-0 {
-  right: 0px;
-}
-.bottom-0 {
-  bottom: 0px;
-}
-.left-0 {
-  left: 0px;
 }
 
 .top-md {
@@ -37,8 +24,44 @@
   left: var(--fmtm-space-md);
 }
 
-/* Sizing utilities */
+/* Sizing */
+
 .fullscreen {
   width: 100vw;
   height: 100vh;
+}
+
+/* Pointer events */
+
+.pointer-events-none {
+  pointer-events: none;
+}
+.pointer-events-auto {
+  pointer-events: auto;
+}
+
+/* Z-indexes */
+
+.z-panels {
+  z-index: 800;
+}
+.z-controls {
+  z-index: 1000;
+}
+
+/* Borders */
+
+.rounded {
+  border-radius: var(--fmtm-radius);
+}
+.rounded-full {
+  border-radius: 50%;
+}
+
+/* Misc */
+
+.centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

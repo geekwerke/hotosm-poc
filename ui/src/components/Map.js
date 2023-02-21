@@ -12,16 +12,15 @@ import PropTypes from "prop-types";
 const MapContext = createContext();
 const useMapContext = () => useContext(MapContext);
 
-function Map({ center, className, zoom, ...rest }) {
+function Map({ center, children, className, zoom, ...rest }) {
   const [context, setContext] = useState(null);
 
   const mapRef = useCallback((mapContainer) => {
     if (mapContainer !== null) {
-      const map = Leaflet.map(mapContainer).setView(center, zoom);
-
-      map.zoomControl.setPosition("topright");
-
-      Leaflet.control.locate().addTo(map);
+      const map = Leaflet.map(mapContainer, { zoomControl: false }).setView(
+        center,
+        zoom
+      );
 
       Leaflet.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution:
@@ -42,17 +41,16 @@ function Map({ center, className, zoom, ...rest }) {
 
   return (
     <MapContext.Provider value={context}>
-      <div
-        className={classNames("relative", className)}
-        ref={mapRef}
-        {...rest}
-      />
+      <div className={classNames("relative", className)} ref={mapRef} {...rest}>
+        {context?.map ? children : null}
+      </div>
     </MapContext.Provider>
   );
 }
 
 Map.propTypes = {
   center: PropTypes.array,
+  children: PropTypes.node,
   className: PropTypes.string,
   zoom: PropTypes.number,
 };

@@ -3,8 +3,7 @@
  **********************/
 
 :root {
-  /* Colors
-   * Inspired by PicoCSS
+  /* Colors – Inspired by PicoCSS
    * @link https://picocss.com
    */
   --fmtm-background: #11191f;
@@ -38,6 +37,9 @@
   --fmtm-space-md: clamp(1.69rem, calc(1.62rem + 0.33vw), 1.88rem);
   --fmtm-space-lg: clamp(2.25rem, calc(2.16rem + 0.43vw), 2.5rem);
   --fmtm-space-xl: clamp(3.38rem, calc(3.24rem + 0.65vw), 3.75rem);
+
+  /* Misc */
+  --fmtm-radius: 0.25rem;
 }
 
 /**********************
@@ -78,36 +80,4 @@ body {
   background: var(--fmtm-background);
   color: var(--fmtm-text);
   font-size: var(--fmtm-size-md);
-}
-
-button {
-  --fmtm-button: var(--fmtm-primary);
-  --fmtm-button-hover: var(--fmtm-primary-hover);
-  --fmtm-button-text: var(--fmtm-primary-inverse);
-
-  background-color: var(--fmtm-button);
-  border: none;
-  border-radius: 0.25rem;
-  box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.2);
-  color: var(--fmtm-button-text);
-  padding: var(--fmtm-size-xs);
-  transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: var(--fmtm-button-hover);
-  box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.2);
-}
-
-button.secondary {
-  --fmtm-button: var(--fmtm-secondary);
-  --fmtm-button-hover: var(--fmtm-secondary-hover);
-  --fmtm-button-text: var(--fmtm-secondary-inverse);
-}
-
-button.contrast {
-  --fmtm-button: var(--fmtm-contrast);
-  --fmtm-button-hover: var(--fmtm-contrast-hover);
-  --fmtm-button-text: var(--fmtm-contrast-inverse);
 }

@@ -1,0 +1,37 @@
+/**********************
+ * COMPOSITION CLASSES
+ **********************/
+
+.gap-xs {
+  --gap: var(--fmtm-space-xs);
+}
+.gap-sm {
+  --gap: var(--fmtm-space-sm);
+}
+.gap-md {
+  --gap: var(--fmtm-space-md);
+}
+.gap-lg {
+  --gap: var(--fmtm-space-lg);
+}
+.gap-xl {
+  --gap: var(--fmtm-space-xl);
+}
+
+/* Stack
+ * Adds consistent spacing between elements. Use in combination with .gap- classes.
+ */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--gap);
+}
+
+.stack-col {
+  flex-direction: column;
+}
+.stack-row {
+  flex-direction: row;
+}
