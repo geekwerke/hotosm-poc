@@ -1,24 +1,41 @@
+import { useCallback, useRef, useReducer } from "react";
+
 import Map from "./components/Map";
 import Controls from "./components/Controls";
 import LocateControl from "./components/LocateControl";
 import ZoomControl from "./components/ZoomControl";
 import DrawLayer from "./components/DrawLayer";
 import ProjectPanel from "./components/ProjectPanel";
-import { useCallback, useRef, useReducer } from "react";
+
+const AppStatus = {
+  IDLE: "idle",
+  // User is drawing a project boundary.
+  DRAWING: "drawing",
+  // User is editing project params.
+  EDITING: "editing",
+  // User is generating task boundaries.
+  GENERATING: "generating",
+};
+
+const AppAction = {
+  DRAW_STARTED: "draw:started",
+  DRAW_CHANGED: "draw:changed",
+  DRAW_DONE: "draw:done",
+};
 
 const initialState = {
-  status: "idle", // "idle" | "editing" | "created" | "generated"
+  status: AppStatus.IDLE,
   latLngs: [],
 };
 
 function reducer(state, action) {
   switch (action.type) {
-    case "edit:start":
-      return { ...state, status: "editing" };
-    case "edit:change":
+    case AppAction.DRAW_STARTED:
+      return { ...state, status: AppStatus.DRAWING };
+    case AppAction.DRAW_CHANGED:
       return { ...state, latLngs: action.latLngs };
-    case "edit:done":
-      return { ...state, status: "created" };
+    case AppAction.DRAW_DONE:
+      return { ...state, status: AppStatus.EDITING };
     default:
       return state;
   }
@@ -28,20 +45,20 @@ function App() {
   const [{ status, latLngs }, dispatch] = useReducer(reducer, initialState);
   const drawLayerRef = useRef(null);
 
-  const canFinishEditing = latLngs.length !== 0;
-  const handleEditChange = useCallback(
+  const canFinishDrawing = latLngs.length !== 0;
+  const handleDrawChange = useCallback(
     (latLngs) =>
       dispatch({
-        type: "edit:change",
+        type: AppAction.DRAW_CHANGED,
         latLngs,
       }),
     []
   );
-  const handleEditClear = useCallback(() => {
+  const handleDrawClear = useCallback(() => {
     drawLayerRef.current?.clear();
   }, []);
-  const handleEditDone = useCallback(() => {
-    dispatch({ type: "edit:done" });
+  const handleDrawDone = useCallback(() => {
+    dispatch({ type: AppAction.DRAW_DONE });
   }, []);
 
   return (
@@ -53,20 +70,22 @@ function App() {
         </Controls>
         <DrawLayer
           ref={drawLayerRef}
-          isEditing={status === "editing"}
-          onEdit={handleEditChange}
+          status={status}
+          latLngs={latLngs}
+          onDrawChange={handleDrawChange}
         />
       </Map>
       <ProjectPanel
-        isEditing={status === "editing"}
-        onEdit={() => dispatch({ type: "edit:start" })}
-        onClear={handleEditClear}
-        onDone={handleEditDone}
-        canFinishEditing={canFinishEditing}
-        hasFinishedEditing={status === "created"}
+        status={status}
+        onDrawStart={() => dispatch({ type: AppAction.DRAW_STARTED })}
+        onDrawClear={handleDrawClear}
+        onDrawDone={handleDrawDone}
+        canFinishDrawing={canFinishDrawing}
       />
     </main>
   );
 }
+
+export { AppStatus, AppAction };
 
 export default App;
