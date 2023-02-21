@@ -4,3 +4,19 @@
 @import "./_utilities.css";
 
 @import "leaflet/dist/leaflet.css";
+
+.leaflet-edge {
+  background-color: var(--fmtm-primary);
+  box-shadow: 0 0 0 2px white, 0 0 10px rgba(0, 0, 0, 0.35);
+  border-radius: 50%;
+  cursor: move;
+  outline: none;
+  transition: background-color 0.25s;
+}
+
+.leaflet-interactive {
+  fill: var(--fmtm-primary);
+  stroke: var(--fmtm-primary);
+  stroke-width: 4;
+  fill-opacity: 0.35;
+}

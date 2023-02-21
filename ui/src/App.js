@@ -2,6 +2,7 @@ import Map from "./components/Map";
 import Controls from "./components/Controls";
 import LocateControl from "./components/LocateControl";
 import ZoomControl from "./components/ZoomControl";
+import DrawLayer from "./components/DrawLayer";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <LocateControl />
         <ZoomControl />
       </Controls>
+      <DrawLayer editable />
     </Map>
   );
 }
