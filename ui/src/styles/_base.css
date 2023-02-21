@@ -87,6 +87,7 @@ body {
   background: var(--fmtm-background);
   color: var(--fmtm-text);
   font-size: var(--fmtm-size-md);
+  accent-color: var(--fmtm-primary);
 }
 
 h1,
@@ -110,4 +111,45 @@ p {
 header > :last-child {
   font-size: var(--fmtm-size-md);
   color: var(--fmtm-text-muted);
+}
+
+label {
+  display: block;
+  font-size: var(--fmtm-size-sm);
+  color: var(--fmtm-text-muted);
+  text-transform: uppercase;
+}
+
+input {
+  margin-bottom: var(--fmtm-space-sm);
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  background: var(--fmtm-background);
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 0.5rem;
+  border-radius: var(--fmtm-radius);
+  background-color: var(--fmtm-secondary);
+  box-shadow: var(--fmtm-shadow);
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: -0.35rem;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--fmtm-primary);
+  box-shadow: var(--fmtm-shadow);
+  cursor: pointer;
+  -webkit-transition: background-color var(--fmtm-transition);
+  transition: background-color var(--fmtm-transition);
+}
+input[type="range"]:hover::-webkit-slider-thumb,
+input[type="range"]:focus::-webkit-slider-thumb {
+  background-color: var(--fmtm-primary-hover);
 }
