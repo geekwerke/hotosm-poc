@@ -1,14 +1,22 @@
 import { AppStatus } from "../App";
 
 function ProjectPanel({
-  canFinishDrawing,
+  status,
+
+  onDrawStart,
   onDrawClear,
   onDrawDone,
-  onDrawStart,
-  status,
+  canFinishDrawing,
+
+  tasks,
+  onTaskRangeChange,
 }) {
   const isDrawing = status === AppStatus.DRAWING;
   const hasFinishedDrawing = status === AppStatus.EDITING;
+
+  const handleChange = (event) => {
+    onTaskRangeChange(+event.target.value);
+  };
 
   const renderProjectBoundary = (
     <>
@@ -48,6 +56,20 @@ function ProjectPanel({
         After specifying the parameters, click the generate button to create the
         task boundaries.
       </p>
+      <div className="repel">
+        <label htmlFor="tasks-range">Number of tasks</label>
+        <p>{tasks} tasks</p>
+      </div>
+      <input
+        className="w-full"
+        type="range"
+        min="5"
+        max="15"
+        value={tasks}
+        id="tasks-range"
+        name="tasks-range"
+        onChange={handleChange}
+      />
       <button className="primary w-full shadow-none">Generate</button>
     </>
   );

@@ -21,11 +21,16 @@ const AppAction = {
   DRAW_STARTED: "draw:started",
   DRAW_CHANGED: "draw:changed",
   DRAW_DONE: "draw:done",
+
+  EDIT_TASK_RANGE_CHANGED: "edit:task-range-changed",
 };
 
 const initialState = {
   status: AppStatus.IDLE,
-  latLngs: [],
+  latLngsDrawn: [],
+
+  tasks: 5,
+  latLngsGenerated: [],
 };
 
 function reducer(state, action) {
@@ -33,19 +38,24 @@ function reducer(state, action) {
     case AppAction.DRAW_STARTED:
       return { ...state, status: AppStatus.DRAWING };
     case AppAction.DRAW_CHANGED:
-      return { ...state, latLngs: action.latLngs };
+      return { ...state, latLngsDrawn: action.latLngs };
     case AppAction.DRAW_DONE:
       return { ...state, status: AppStatus.EDITING };
+    case AppAction.EDIT_TASK_RANGE_CHANGED:
+      return { ...state, tasks: action.tasks };
     default:
       return state;
   }
 }
 
 function App() {
-  const [{ status, latLngs }, dispatch] = useReducer(reducer, initialState);
+  const [{ status, latLngsDrawn, tasks }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
   const drawLayerRef = useRef(null);
 
-  const canFinishDrawing = latLngs.length !== 0;
+  const canFinishDrawing = latLngsDrawn.length !== 0;
   const handleDrawChange = useCallback(
     (latLngs) =>
       dispatch({
@@ -60,6 +70,10 @@ function App() {
   const handleDrawDone = useCallback(() => {
     dispatch({ type: AppAction.DRAW_DONE });
   }, []);
+  const handleTaskRangeChange = useCallback(
+    (tasks) => dispatch({ type: AppAction.EDIT_TASK_RANGE_CHANGED, tasks }),
+    []
+  );
 
   return (
     <main className="relative">
@@ -71,7 +85,7 @@ function App() {
         <DrawLayer
           ref={drawLayerRef}
           status={status}
-          latLngs={latLngs}
+          latLngs={latLngsDrawn}
           onDrawChange={handleDrawChange}
         />
       </Map>
@@ -81,6 +95,8 @@ function App() {
         onDrawClear={handleDrawClear}
         onDrawDone={handleDrawDone}
         canFinishDrawing={canFinishDrawing}
+        tasks={tasks}
+        onTaskRangeChange={handleTaskRangeChange}
       />
     </main>
   );
