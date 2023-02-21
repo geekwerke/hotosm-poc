@@ -34,7 +34,7 @@
     ]
   },
   "params": {
-    "maxSize": 200000,
+    "subTasks": 7,
     "splitBy": ["roads"]
   }
 }
