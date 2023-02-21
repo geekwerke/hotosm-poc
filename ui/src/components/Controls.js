@@ -9,7 +9,7 @@ function Controls({ children }) {
   );
 
   return (
-    <div className="stack stack-row gap-sm absolute top-md right-md pointer-events-none z-controls">
+    <div className="stack stack-row gap-xs absolute top-md right-md pointer-events-none z-controls">
       {mappedChildren}
     </div>
   );

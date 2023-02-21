@@ -1,6 +1,6 @@
 import classNames from "classnames";
 
-import LocateIcon from "./LocateIcon";
+import LocateIcon from "./icons/LocateIcon";
 import { useMapContext } from "./Map";
 
 function LocateControl({ className }) {

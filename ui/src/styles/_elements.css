@@ -11,17 +11,18 @@ button {
 
   background-color: var(--fmtm-button);
   border: none;
-  border-radius: 0.25rem;
-  box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.2);
+  border-radius: var(--fmtm-radius);
+  box-shadow: var(--fmtm-shadow);
   color: var(--fmtm-button-text);
   padding: var(--fmtm-size-xs);
-  transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  transition: background-color var(--fmtm-transition),
+    box-shadow var(--fmtm-transition);
   cursor: pointer;
 }
 
 button:hover {
   background-color: var(--fmtm-button-hover);
-  box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--fmtm-shadow-hover);
 }
 
 button.secondary {
@@ -34,4 +35,27 @@ button.contrast {
   --fmtm-button: var(--fmtm-contrast);
   --fmtm-button-hover: var(--fmtm-contrast-hover);
   --fmtm-button-text: var(--fmtm-contrast-inverse);
+}
+
+.button-group {
+  box-shadow: var(--fmtm-shadow);
+  transition: box-shadow var(--fmtm-transition);
+}
+.button-group:hover {
+  box-shadow: var(--fmtm-shadow-hover);
+}
+.button-group button:first-child {
+  border-top-left-radius: var(--fmtm-radius);
+  border-top-right-radius: var(--fmtm-radius);
+}
+.button-group button:last-child {
+  border-bottom-left-radius: var(--fmtm-radius);
+  border-bottom-right-radius: var(--fmtm-radius);
+}
+.button-group > button {
+  box-shadow: none;
+  border-radius: 0;
+}
+.button-group > button + button {
+  border-top: 1px solid var(--fmtm-divider);
 }

@@ -39,7 +39,11 @@
   --fmtm-space-xl: clamp(3.38rem, calc(3.24rem + 0.65vw), 3.75rem);
 
   /* Misc */
+  --fmtm-divider: #73828c;
   --fmtm-radius: 0.25rem;
+  --fmtm-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.2);
+  --fmtm-shadow-hover: 0px 0px 8px 2px rgba(0, 0, 0, 0.2);
+  --fmtm-transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /**********************
