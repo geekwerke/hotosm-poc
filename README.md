@@ -7,13 +7,28 @@ POC for HOTOSM FMTM project.
 
 <img width="1120" alt="architecture" src="https://user-images.githubusercontent.com/11095038/220077539-059229bf-be86-4e6f-8488-44b0ee610f26.png">
 
-## Running the backend
+## Running the app
 
+Create a file `.env` in the root directory with the following example content.
+
+``` sh
+DB_NAME=postgres
+DB_USER=postgres
+DB_PASSWORD=123
+DB_HOST=127.0.0.1
 ```
-$ cd api/src
-$ pdm venu activate
-$ uvicorn main:app
+
+and then run:
+
+``` sh
+$ docker-compose up -d --build
 ```
+
+This will spawn 3 docker containers:
+
+1. Postgres database with postgis extension installed.
+2. FastAPI service with region splitting APIs on port 8000. 
+3. React frontend on port 3000.
 
 ## Approach
 
