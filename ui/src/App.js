@@ -1,4 +1,5 @@
-import { useCallback, useRef, useReducer } from "react";
+import { useCallback, useEffect, useRef, useReducer } from "react";
+import L from "leaflet";
 
 import Map from "./components/Map";
 import Controls from "./components/Controls";
@@ -34,7 +35,7 @@ const initialState = {
   latLngsDrawn: [],
 
   tasks: 5,
-  latLngsGenerated: [],
+  geojsonGenerated: null,
 };
 
 function reducer(state, action) {
@@ -53,7 +54,7 @@ function reducer(state, action) {
       return {
         ...state,
         status: AppStatus.EDITING,
-        latLngsGenerated: action.latLngs,
+        geojsonGenerated: action.geojson,
       };
     default:
       return state;
@@ -61,13 +62,32 @@ function reducer(state, action) {
 }
 
 function App() {
-  const [{ status, latLngsDrawn, tasks }, dispatch] = useReducer(
-    reducer,
-    initialState
-  );
+  const [{ status, latLngsDrawn, tasks, geojsonGenerated }, dispatch] =
+    useReducer(reducer, initialState);
+
+  const mapRef = useRef(null);
   const drawLayerRef = useRef(null);
 
+  // Fix for a bug in Leaflet.FreeDraw where the polygon
+  // drawn does not get added to the map.
+  useEffect(() => {
+    const polygon = L.polygon(latLngsDrawn);
+    mapRef.current?.addLayer(polygon);
+    return () => mapRef.current?.removeLayer(polygon);
+  }, [latLngsDrawn]);
+
+  useEffect(() => {
+    if (!geojsonGenerated) return;
+
+    console.log(geojsonGenerated);
+    const geojsonLayer = L.geoJSON(geojsonGenerated);
+    mapRef.current?.addLayer(geojsonLayer);
+    return () => mapRef.current?.removeLayer(geojsonLayer);
+  }, [geojsonGenerated]);
+
   const canFinishDrawing = latLngsDrawn.length !== 0;
+  const hasFinishedDrawing =
+    status !== AppStatus.DRAWING && latLngsDrawn.length !== 0;
   const handleDrawChange = useCallback(
     (latLngs) =>
       dispatch({
@@ -88,13 +108,13 @@ function App() {
   );
   const handleGenerate = useCallback(async () => {
     dispatch({ type: AppAction.GENERATE_STARTED });
-    const latLngs = await getTaskSplit(latLngsDrawn, tasks);
-    dispatch({ type: AppAction.GENERATE_DONE, latLngs });
+    const { split } = await getTaskSplit(latLngsDrawn, tasks);
+    dispatch({ type: AppAction.GENERATE_DONE, geojson: split });
   }, [latLngsDrawn, tasks]);
 
   return (
     <main className="relative">
-      <Map className="fullscreen">
+      <Map ref={mapRef} className="fullscreen">
         <Controls>
           <LocateControl />
           <ZoomControl />
@@ -112,6 +132,7 @@ function App() {
         onDrawClear={handleDrawClear}
         onDrawDone={handleDrawDone}
         canFinishDrawing={canFinishDrawing}
+        hasFinishedDrawing={hasFinishedDrawing}
         tasks={tasks}
         onTaskRangeChange={handleTaskRangeChange}
         onGenerate={handleGenerate}

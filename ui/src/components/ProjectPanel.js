@@ -7,6 +7,7 @@ function ProjectPanel({
   onDrawClear,
   onDrawDone,
   canFinishDrawing,
+  hasFinishedDrawing,
 
   tasks,
   onTaskRangeChange,
@@ -14,7 +15,6 @@ function ProjectPanel({
   onGenerate,
 }) {
   const isDrawing = status === AppStatus.DRAWING;
-  const hasFinishedDrawing = status === AppStatus.EDITING;
   const isGenerating = status === AppStatus.GENERATING;
 
   const handleChange = (event) => {

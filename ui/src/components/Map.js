@@ -1,8 +1,10 @@
 import {
   createContext,
+  forwardRef,
   useCallback,
   useContext,
   useEffect,
+  useImperativeHandle,
   useState,
 } from "react";
 import classNames from "classnames";
@@ -12,7 +14,10 @@ import PropTypes from "prop-types";
 const MapContext = createContext();
 const useMapContext = () => useContext(MapContext);
 
-function Map({ center, children, className, zoom, ...rest }) {
+const Map = forwardRef(function (
+  { center, children, className, zoom, ...rest },
+  ref
+) {
   const [context, setContext] = useState(null);
 
   const mapRef = useCallback((mapContainer) => {
@@ -35,6 +40,9 @@ function Map({ center, children, className, zoom, ...rest }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Expose the map object outside the component.
+  useImperativeHandle(ref, () => context?.map, [context]);
+
   useEffect(() => {
     return () => context?.map.remove();
   }, [context]);
@@ -46,7 +54,7 @@ function Map({ center, children, className, zoom, ...rest }) {
       </div>
     </MapContext.Provider>
   );
-}
+});
 
 Map.propTypes = {
   center: PropTypes.array,
