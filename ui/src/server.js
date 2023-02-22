@@ -1,5 +1,3 @@
-import { polygon } from "@turf/helpers";
-
 const BACKEND_API_BASE_URL = "http://localhost:8000";
 
 async function getTaskSplit(latLngsDrawn, subTasks) {
@@ -20,7 +18,16 @@ function createRequestBody(latLngs, subTasks) {
   const body = {
     boundary: {
       type: "FeatureCollection",
-      features: [polygon(latLngs)],
+      features: [
+        {
+          type: "Feature",
+          properties: {},
+          geometry: {
+            coordinates: [latLngs[0].map(({ lat, lng }) => [lng, lat])],
+            type: "Polygon",
+          },
+        },
+      ],
     },
     params: {
       subTasks,

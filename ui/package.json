@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@turf/helpers": "^6.5.0",
     "classnames": "^2.3.2",
     "leaflet": "^1.9.3",
     "leaflet-freedraw": "^2.13.3",
