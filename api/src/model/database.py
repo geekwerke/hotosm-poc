@@ -10,13 +10,13 @@ def subdivide(geometry, params):
 
     query = """
 WITH geometry AS (
-  SELECT ST_GeomFromGeoJSON('{}') AS geom
+  SELECT ST_GeomFromGeoJSON(%s) AS geom
 ),
 geom_pts AS (
   SELECT (ST_Dump(ST_GeneratePoints(geom, 10000))).geom AS geom
   FROM geometry),
 geom_pts_clustered AS (
-  SELECT geom, ST_ClusterKMeans(geom, '{}') over () AS cluster
+  SELECT geom, ST_ClusterKMeans(geom, %s) over () AS cluster
   FROM geom_pts),
 geom_centers AS (
   SELECT cluster, ST_Centroid(ST_collect(geom)) AS geom
@@ -32,7 +32,7 @@ geom_divided AS (
 
 SELECT ST_AsGeoJSON(geom)
 FROM geom_divided;
-    """.format(geometry, subtasks)
+    """
 
-    cursor.execute(query)
+    cursor.execute(query, (geometry, subtasks))
     return cursor.fetchall()
