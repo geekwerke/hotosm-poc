@@ -28,6 +28,8 @@ const AppAction = {
 
   GENERATE_STARTED: "generate:started",
   GENERATE_DONE: "generate:done",
+
+  RESET: "reset",
 };
 
 const initialState = {
@@ -56,6 +58,8 @@ function reducer(state, action) {
         status: AppStatus.EDITING,
         geojsonGenerated: action.geojson,
       };
+    case AppAction.RESET:
+      return { ...initialState };
     default:
       return state;
   }
@@ -110,6 +114,10 @@ function App() {
     const { split } = await getTaskSplit(latLngsDrawn, tasks);
     dispatch({ type: AppAction.GENERATE_DONE, geojson: split });
   }, [latLngsDrawn, tasks]);
+  const handleReset = useCallback(() => {
+    dispatch({ type: AppAction.RESET });
+    drawLayerRef.current?.clear();
+  }, []);
 
   return (
     <main className="relative">
@@ -135,6 +143,7 @@ function App() {
         tasks={tasks}
         onTaskRangeChange={handleTaskRangeChange}
         onGenerate={handleGenerate}
+        onReset={handleReset}
       />
     </main>
   );

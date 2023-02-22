@@ -11,8 +11,8 @@ function ProjectPanel({
 
   tasks,
   onTaskRangeChange,
-
   onGenerate,
+  onReset,
 }) {
   const isDrawing = status === AppStatus.DRAWING;
   const isGenerating = status === AppStatus.GENERATING;
@@ -79,6 +79,13 @@ function ProjectPanel({
         disabled={isGenerating}
       >
         Generate
+      </button>
+      <button
+        className="secondary w-full shadow-none"
+        onClick={onReset}
+        disabled={isGenerating}
+      >
+        Start over
       </button>
     </>
   );
