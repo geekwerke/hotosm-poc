@@ -13,7 +13,7 @@ WITH geometry AS (
   SELECT ST_GeomFromGeoJSON('{}') AS geom
 ),
 geom_pts AS (
-  SELECT (ST_Dump(ST_GeneratePoints(geom, 1000))).geom AS geom
+  SELECT (ST_Dump(ST_GeneratePoints(geom, 10000))).geom AS geom
   FROM geometry),
 geom_pts_clustered AS (
   SELECT geom, ST_ClusterKMeans(geom, '{}') over () AS cluster
