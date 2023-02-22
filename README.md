@@ -30,6 +30,15 @@ This will spawn 3 docker containers:
 2. FastAPI service with region splitting APIs on port 8000. 
 3. React frontend on port 3000.
 
+## How to use the Region Splitting API
+
+Make a post request to `/project` with the schema present in `api/sample-data/request.json`.
+[Httpie](https://github.com/httpie/httpie) command:
+
+``` sh
+http POST :8000/project @api/sample-data/request.json
+```
+
 ## Approach
 
 ### Phase 1
