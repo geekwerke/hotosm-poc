@@ -47,6 +47,8 @@ The algorithm for subdivision is as follows:
 
 The subdivisions are then converted back into lat-long GeoJSON and transmitted back to the frontend.
 
+![Screenshot_2023-02-22_09-19-09](https://user-images.githubusercontent.com/1161104/220518469-7b56481e-d110-4e62-8157-5372573ad11e.png)
+
 ### Phase 2
 
 The user should additionally be able to specify the types of dividers that they want considered e.g. roads, railways, water bodies
