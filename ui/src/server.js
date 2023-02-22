@@ -24,6 +24,7 @@ function createRequestBody(latLngs, subTasks) {
     },
     params: {
       subTasks,
+      splitBy: ["roads"],
     },
   };
   return JSON.stringify(body);
