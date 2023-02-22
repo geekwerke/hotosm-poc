@@ -79,7 +79,6 @@ function App() {
   useEffect(() => {
     if (!geojsonGenerated) return;
 
-    console.log(geojsonGenerated);
     const geojsonLayer = L.geoJSON(geojsonGenerated);
     mapRef.current?.addLayer(geojsonLayer);
     return () => mapRef.current?.removeLayer(geojsonLayer);
