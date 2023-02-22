@@ -10,9 +10,12 @@ function ProjectPanel({
 
   tasks,
   onTaskRangeChange,
+
+  onGenerate,
 }) {
   const isDrawing = status === AppStatus.DRAWING;
   const hasFinishedDrawing = status === AppStatus.EDITING;
+  const isGenerating = status === AppStatus.GENERATING;
 
   const handleChange = (event) => {
     onTaskRangeChange(+event.target.value);
@@ -70,7 +73,13 @@ function ProjectPanel({
         name="tasks-range"
         onChange={handleChange}
       />
-      <button className="primary w-full shadow-none">Generate</button>
+      <button
+        className="primary w-full shadow-none"
+        onClick={onGenerate}
+        disabled={isGenerating}
+      >
+        Generate
+      </button>
     </>
   );
 

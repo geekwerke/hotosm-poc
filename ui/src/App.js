@@ -6,6 +6,7 @@ import LocateControl from "./components/LocateControl";
 import ZoomControl from "./components/ZoomControl";
 import DrawLayer from "./components/DrawLayer";
 import ProjectPanel from "./components/ProjectPanel";
+import { getTaskSplit } from "./server";
 
 const AppStatus = {
   IDLE: "idle",
@@ -23,6 +24,9 @@ const AppAction = {
   DRAW_DONE: "draw:done",
 
   EDIT_TASK_RANGE_CHANGED: "edit:task-range-changed",
+
+  GENERATE_STARTED: "generate:started",
+  GENERATE_DONE: "generate:done",
 };
 
 const initialState = {
@@ -43,6 +47,14 @@ function reducer(state, action) {
       return { ...state, status: AppStatus.EDITING };
     case AppAction.EDIT_TASK_RANGE_CHANGED:
       return { ...state, tasks: action.tasks };
+    case AppAction.GENERATE_STARTED:
+      return { ...state, status: AppStatus.GENERATING };
+    case AppAction.GENERATE_DONE:
+      return {
+        ...state,
+        status: AppStatus.EDITING,
+        latLngsGenerated: action.latLngs,
+      };
     default:
       return state;
   }
@@ -74,6 +86,11 @@ function App() {
     (tasks) => dispatch({ type: AppAction.EDIT_TASK_RANGE_CHANGED, tasks }),
     []
   );
+  const handleGenerate = useCallback(async () => {
+    dispatch({ type: AppAction.GENERATE_STARTED });
+    const latLngs = await getTaskSplit(latLngsDrawn, tasks);
+    dispatch({ type: AppAction.GENERATE_DONE, latLngs });
+  }, [latLngsDrawn, tasks]);
 
   return (
     <main className="relative">
@@ -97,6 +114,7 @@ function App() {
         canFinishDrawing={canFinishDrawing}
         tasks={tasks}
         onTaskRangeChange={handleTaskRangeChange}
+        onGenerate={handleGenerate}
       />
     </main>
   );
