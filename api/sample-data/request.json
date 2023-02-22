@@ -33,7 +33,7 @@
     ]
   },
   "params": {
-    "subTasks": 5,
+    "subTasks": 25,
     "splitBy": ["roads"]
   }
 }
